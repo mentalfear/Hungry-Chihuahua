@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vnuo4vb7hrta"]
+
+[ext_resource type="Script" path="res://nodes/Item/napf.gd" id="1_3k04o"]
+[ext_resource type="Texture2D" uid="uid://bch4k3emt8ubt" path="res://nodes/Item/test.png" id="1_3ylkm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7tmtt"]
+size = Vector2(135, 107)
+
+[node name="napf" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_3k04o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_7tmtt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_3ylkm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

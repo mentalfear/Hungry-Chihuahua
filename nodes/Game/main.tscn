@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bis08ukj87yym"]
+
+[ext_resource type="Script" path="res://nodes/Game/main.gd" id="1_744js"]
+[ext_resource type="PackedScene" uid="uid://f08ln13etnsb" path="res://nodes/Item/item.tscn" id="1_e80lb"]
+[ext_resource type="Texture2D" uid="uid://bxbjuboarf0hg" path="res://graphics/hungry-chihuahua-background.png" id="1_j10vm"]
+[ext_resource type="PackedScene" uid="uid://vnuo4vb7hrta" path="res://nodes/Item/napf.tscn" id="3_nhehv"]
+[ext_resource type="Texture2D" uid="uid://dga1qp6jf322q" path="res://graphics/banana.png" id="4_hqg1m"]
+[ext_resource type="Texture2D" uid="uid://dwea2y4d121mo" path="res://graphics/dosenfutter.png" id="6_0y6jp"]
+[ext_resource type="Texture2D" uid="uid://dtswnqml7eiu3" path="res://graphics/luni.png" id="7_u3mnp"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_744js")
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_j10vm")
+centered = false
+
+[node name="napfe" type="Node" parent="."]
+
+[node name="napf" parent="napfe" instance=ExtResource("3_nhehv")]
+position = Vector2(440, 690)
+
+[node name="napf2" parent="napfe" instance=ExtResource("3_nhehv")]
+position = Vector2(660, 690)
+
+[node name="napf3" parent="napfe" instance=ExtResource("3_nhehv")]
+position = Vector2(880, 691)
+
+[node name="Items" type="Node" parent="."]
+
+[node name="item" parent="Items" instance=ExtResource("1_e80lb")]
+position = Vector2(399, 118)
+sprite = ExtResource("4_hqg1m")
+start_position = Vector2(400, 100)
+
+[node name="item2" parent="Items" instance=ExtResource("1_e80lb")]
+position = Vector2(494, 117)
+sprite = ExtResource("6_0y6jp")
+
+[node name="Luni" type="Sprite2D" parent="."]
+position = Vector2(13, 355)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("7_u3mnp")
+centered = false
+
+[connection signal="futter_luni" from="." to="." method="_on_futter_luni"]
