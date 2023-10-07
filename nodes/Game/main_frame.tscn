@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://cb62rjk42fnsn"]
+
+[ext_resource type="Texture2D" uid="uid://bxbjuboarf0hg" path="res://graphics/hungry-chihuahua-background.png" id="1_58kuh"]
+[ext_resource type="Script" path="res://nodes/Game/main.gd" id="1_sm6ac"]
+[ext_resource type="PackedScene" uid="uid://vnuo4vb7hrta" path="res://nodes/Item/napf.tscn" id="2_yguh6"]
+[ext_resource type="PackedScene" uid="uid://f08ln13etnsb" path="res://nodes/Item/item.tscn" id="3_6yji6"]
+[ext_resource type="Texture2D" uid="uid://dga1qp6jf322q" path="res://graphics/banana.png" id="4_83n85"]
+[ext_resource type="Texture2D" uid="uid://dwea2y4d121mo" path="res://graphics/dosenfutter.png" id="5_acl4t"]
+[ext_resource type="PackedScene" uid="uid://df2esvjtsk1vt" path="res://nodes/Game/leiste.tscn" id="7_aw5kk"]
+
+[node name="main_frame" type="Node2D"]
+script = ExtResource("1_sm6ac")
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_58kuh")
+centered = false
+
+[node name="Füttern" type="Button" parent="."]
+offset_left = 37.0
+offset_top = 295.0
+offset_right = 103.0
+offset_bottom = 326.0
+text = "Füttern"
+
+[node name="Reset" type="Button" parent="."]
+offset_left = 185.0
+offset_top = 297.0
+offset_right = 236.0
+offset_bottom = 328.0
+text = "Reset"
+
+[node name="cups" type="Node2D" parent="."]
+
+[node name="napf" parent="cups" instance=ExtResource("2_yguh6")]
+position = Vector2(419, 693)
+
+[node name="napf2" parent="cups" instance=ExtResource("2_yguh6")]
+position = Vector2(682, 697)
+
+[node name="napf3" parent="cups" instance=ExtResource("2_yguh6")]
+position = Vector2(892, 699)
+
+[node name="items" type="Node2D" parent="."]
+position = Vector2(5, 0)
+
+[node name="item" parent="items" instance=ExtResource("3_6yji6")]
+position = Vector2(392, 119)
+sprite = ExtResource("4_83n85")
+fett = 20
+satt = 20
+gluck = 20
+
+[node name="item2" parent="items" instance=ExtResource("3_6yji6")]
+position = Vector2(485, 121)
+sprite = ExtResource("5_acl4t")
+fett = -15
+satt = -15
+gluck = -15
+
+[node name="leisten" type="Node2D" parent="."]
+
+[node name="fett" parent="leisten" instance=ExtResource("7_aw5kk")]
+position = Vector2(139, 62)
+
+[node name="satt" parent="leisten" instance=ExtResource("7_aw5kk")]
+position = Vector2(139, 146)
+
+[node name="gluck" parent="leisten" instance=ExtResource("7_aw5kk")]
+position = Vector2(136, 225)
+
+[connection signal="button_down" from="Füttern" to="." method="_on_füttern_button_down"]
+[connection signal="button_down" from="Reset" to="." method="_on_reset_button_down"]

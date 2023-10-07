@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci0j474tcn3i8"]
+
+[ext_resource type="Texture2D" uid="uid://dtswnqml7eiu3" path="res://graphics/luni.png" id="1_p7oo5"]
+[ext_resource type="Texture2D" uid="uid://bclt5rrc1n3cc" path="res://graphics/luni-auge.png" id="2_8i8eo"]
+[ext_resource type="Texture2D" uid="uid://cwl3dxfs6vblh" path="res://graphics/luni-ohren-normal.png" id="2_31qbc"]
+[ext_resource type="Script" path="res://nodes/Game/eye.gd" id="3_kgaj2"]
+[ext_resource type="Texture2D" uid="uid://dlerhs6iyyfww" path="res://graphics/luni-kopf.png" id="4_ugof7"]
+
+[node name="Luni" type="Node2D"]
+position = Vector2(505, 399)
+
+[node name="Skizze" type="Sprite2D" parent="."]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_p7oo5")
+
+[node name="ohr_rechts" type="Sprite2D" parent="."]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_31qbc")
+
+[node name="Head" type="CanvasGroup" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Head"]
+offset_left = -44.0
+offset_top = -78.0
+offset_right = 49.0
+offset_bottom = -38.0
+metadata/_edit_use_anchors_ = true
+
+[node name="eye_rechts" type="Sprite2D" parent="Head"]
+position = Vector2(29.9999, -58)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_8i8eo")
+script = ExtResource("3_kgaj2")
+radius = 6
+
+[node name="eye_links" type="Sprite2D" parent="Head"]
+position = Vector2(-23.9999, -57)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_8i8eo")
+script = ExtResource("3_kgaj2")
+radius = 6
+
+[node name="head" type="Sprite2D" parent="Head"]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("4_ugof7")

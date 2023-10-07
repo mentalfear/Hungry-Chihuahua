@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://0adyptjiq27t"]
+
+[ext_resource type="PackedScene" uid="uid://cb62rjk42fnsn" path="res://nodes/Game/main_frame.tscn" id="1_r7s28"]
+[ext_resource type="Script" path="res://nodes/Game/game.gd" id="1_wg2tv"]
+[ext_resource type="PackedScene" uid="uid://d1jr4tbbrr4yu" path="res://nodes/Game/blende_new_day.tscn" id="3_fjfnl"]
+[ext_resource type="PackedScene" uid="uid://ci0j474tcn3i8" path="res://nodes/Game/luni.tscn" id="3_uip85"]
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_wg2tv")
+
+[node name="main_frame" parent="." instance=ExtResource("1_r7s28")]
+
+[node name="Luni" parent="." instance=ExtResource("3_uip85")]
+position = Vector2(136, 554)
+
+[node name="blende_new_day" parent="." instance=ExtResource("3_fjfnl")]
+visible = false
+
+[connection signal="a_new_day" from="main_frame" to="." method="_on_main_frame_a_new_day"]
+[connection signal="main_frame" from="blende_new_day" to="." method="_on_blende_new_day_main_frame"]

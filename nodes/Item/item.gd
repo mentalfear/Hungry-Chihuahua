@@ -1,7 +1,6 @@
 extends Area2D
 class_name item
 
-@export var id:int
 @export var locked_on_mouse: bool = false
 @export var drag_allowed: bool = false
 @export var on_area: bool = false
@@ -9,9 +8,15 @@ class_name item
 @export var sprite: Texture2D
 @export var start_position: Vector2
 
+@export var fett:int = 0
+@export var satt:int = 0
+@export var gluck:int = 0
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$item_sprite.set_texture(sprite);
+	if sprite != null:
+		$item_sprite.set_texture(sprite);
 	start_position = position
 
 
@@ -28,7 +33,6 @@ func _process(delta):
 		
 	if locked_on_mouse:
 		position = get_viewport().get_mouse_position()
-
 
 func _on_mouse_entered():
 	drag_allowed = true;

@@ -22,7 +22,25 @@ func _on_area_entered(area:item):
 		area.on_area = true
 		
 func get_fett():
-	return 10
+	if item_id == 0:
+		return 0
+	return instance_from_id(item_id).fett
+
+func get_satt():
+	if item_id == 0:
+		return 0
+	return instance_from_id(item_id).satt
+
+func get_gluck():
+	if item_id == 0:
+		return 0
+	return instance_from_id(item_id).gluck
+
+func hide_item():
+	if item_id != 0:
+		instance_from_id(item_id).hide()
+		instance_from_id(item_id).on_area = false
+		item_id = 0
 
 func _on_area_exited(area:item):
 	print("item raus")
