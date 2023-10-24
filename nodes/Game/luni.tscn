@@ -1,23 +1,91 @@
-[gd_scene load_steps=6 format=3 uid="uid://ci0j474tcn3i8"]
+[gd_scene load_steps=14 format=3 uid="uid://ci0j474tcn3i8"]
 
 [ext_resource type="Texture2D" uid="uid://dtswnqml7eiu3" path="res://graphics/luni.png" id="1_p7oo5"]
 [ext_resource type="Texture2D" uid="uid://bclt5rrc1n3cc" path="res://graphics/luni-auge.png" id="2_8i8eo"]
 [ext_resource type="Texture2D" uid="uid://cwl3dxfs6vblh" path="res://graphics/luni-ohren-normal.png" id="2_31qbc"]
+[ext_resource type="Texture2D" uid="uid://dfyecpfmds2ty" path="res://graphics/luni-koerper.png" id="2_id50t"]
 [ext_resource type="Script" path="res://nodes/Game/eye.gd" id="3_kgaj2"]
+[ext_resource type="Script" path="res://nodes/Game/Head.gd" id="3_r4xa2"]
 [ext_resource type="Texture2D" uid="uid://dlerhs6iyyfww" path="res://graphics/luni-kopf.png" id="4_ugof7"]
+
+[sub_resource type="Animation" id="Animation_cq3r4"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_be4hn"]
+resource_name = "geiles_essen"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1, 3, 4),
+"transitions": PackedFloat32Array(1.23114, 0.482968, 1.23114, 1),
+"update": 0,
+"values": [0.0, 0.244346, -0.244346, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../körper:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1.68179),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ohr_rechts:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.7, 3.1),
+"transitions": PackedFloat32Array(1, 1, 1.46409),
+"update": 0,
+"values": [0.0, -0.0349066, 0.0349066]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uygtp"]
+_data = {
+"RESET": SubResource("Animation_cq3r4"),
+"geiles_essen": SubResource("Animation_be4hn")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_72rh7"]
+animation = &"geiles_essen"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qemmn"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0ty31"]
+states/Start/position = Vector2(275, 108)
+states/geiles_essen/node = SubResource("AnimationNodeAnimation_72rh7")
+states/geiles_essen/position = Vector2(429, 108)
+transitions = ["Start", "geiles_essen", SubResource("AnimationNodeStateMachineTransition_qemmn")]
 
 [node name="Luni" type="Node2D"]
 position = Vector2(505, 399)
 
 [node name="Skizze" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("1_p7oo5")
 
-[node name="ohr_rechts" type="Sprite2D" parent="."]
+[node name="körper" type="Sprite2D" parent="."]
+position = Vector2(0, -1.45634)
 scale = Vector2(0.33, 0.33)
-texture = ExtResource("2_31qbc")
+texture = ExtResource("2_id50t")
 
 [node name="Head" type="CanvasGroup" parent="."]
+rotation = 6.03626
+script = ExtResource("3_r4xa2")
 
 [node name="ColorRect" type="ColorRect" parent="Head"]
 offset_left = -44.0
@@ -25,6 +93,11 @@ offset_top = -78.0
 offset_right = 49.0
 offset_bottom = -38.0
 metadata/_edit_use_anchors_ = true
+
+[node name="ohr_rechts" type="Sprite2D" parent="Head"]
+rotation = 0.00989366
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_31qbc")
 
 [node name="eye_rechts" type="Sprite2D" parent="Head"]
 position = Vector2(29.9999, -58)
@@ -43,3 +116,13 @@ radius = 6
 [node name="head" type="Sprite2D" parent="Head"]
 scale = Vector2(0.33, 0.33)
 texture = ExtResource("4_ugof7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Head"]
+libraries = {
+"": SubResource("AnimationLibrary_uygtp")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Head"]
+tree_root = SubResource("AnimationNodeStateMachine_0ty31")
+anim_player = NodePath("../AnimationPlayer")
+active = true

@@ -1,9 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://0adyptjiq27t"]
+[gd_scene load_steps=7 format=3 uid="uid://0adyptjiq27t"]
 
 [ext_resource type="PackedScene" uid="uid://cb62rjk42fnsn" path="res://nodes/Game/main_frame.tscn" id="1_r7s28"]
 [ext_resource type="Script" path="res://nodes/Game/game.gd" id="1_wg2tv"]
 [ext_resource type="PackedScene" uid="uid://d1jr4tbbrr4yu" path="res://nodes/Game/blende_new_day.tscn" id="3_fjfnl"]
 [ext_resource type="PackedScene" uid="uid://ci0j474tcn3i8" path="res://nodes/Game/luni.tscn" id="3_uip85"]
+[ext_resource type="Shader" path="res://nodes/Game/vhs_retro.gdshader" id="5_dchio"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8anmw"]
+shader = ExtResource("5_dchio")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(1024, 768)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 5.0
+shader_parameter/roll_variation = 2.225
+shader_parameter/distort_intensity = 0.0
+shader_parameter/noise_opacity = 0.08
+shader_parameter/noise_speed = 0.01
+shader_parameter/static_noise_intensity = 0.066
+shader_parameter/aberration = 4.75e-08
+shader_parameter/brightness = 1.1
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.054
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 5.0
+shader_parameter/vignette_opacity = 0.01
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_wg2tv")
@@ -15,6 +40,12 @@ position = Vector2(136, 554)
 
 [node name="blende_new_day" parent="." instance=ExtResource("3_fjfnl")]
 visible = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_8anmw")
+offset_right = 1025.0
+offset_bottom = 765.0
 
 [connection signal="a_new_day" from="main_frame" to="." method="_on_main_frame_a_new_day"]
 [connection signal="main_frame" from="blende_new_day" to="." method="_on_blende_new_day_main_frame"]
